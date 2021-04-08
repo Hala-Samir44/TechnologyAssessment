@@ -1,0 +1,115 @@
+<div class="contain d-flex container-fluid h-100 px-0 mx-0">
+    <div class="col-lg-6 col-md-6 w-50 d-none d-md-block bg-img w-50">
+    </div>
+  
+    <div class="col-lg-6 col-md-6 row justify-content-center right">
+      <div class="register d-flex mr-3">
+        <div>Already have an account? <a [routerLink]="['/login']">Log In</a></div>
+      </div>
+  
+      <div class="right-container col col-lg-10 pt-lg-3 mt-lg-3">
+        <div class="text">Sign Up To <a [routerLink]="['/home']">our School</a></div>
+  
+        <div class="btns">
+          <button class="google" >
+            <div class="ingoogle"></div>
+            <span class="disappear"> &nbsp;&nbsp;&nbsp; Sign Up with Google </span>
+          </button>
+          <button class="fb" ><div class="infb"></div></button>
+          <button class="twitter"><div class="intwitter"></div></button>
+        </div>
+  
+        <h5>Or</h5>
+        <div class="form">
+            <!-- <form [formGroup]="userService.formModel" autocomplete="off" (ngSubmit)="onSubmit()"> -->
+          <form #form="ngForm"  autocomplete="off" (ngSubmit)="onSubmit(form)">
+            <div class="row">
+              <div id="err" class="col-md-6 mb-3 required">
+                <label translate>First name</label>
+                <input [(ngModel)]="formModel.FirstName" #FirstName="ngModel"
+                name="FirstName" class="form-control border bg-light" required />
+                
+              </div>
+              <div id="err" class="col-md-6 mb-3 required">
+                <label translate>Last name</label>
+                <input [(ngModel)]="formModel.LastName" #LastName="ngModel"
+                name="LastName"  class="form-control border bg-light" required />
+                
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-md-12 mb-3 required">
+                <div id="err" class="form-group required">
+                  <label for="validationDefaultUsername" translate>Email address</label>
+                  <input
+                    [(ngModel)]="formModel.Email" 
+                    #Email="ngModel"
+                    name="Email"
+                    class="form-control border bg-light"
+                    id="validationDefaultUsername"
+                    aria-describedby="emailHelp"
+                    email
+                    required
+                  />
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-md-12 mb-3 required">
+                <div id="err" class="form-group required">
+                  <label for="exampleInputPassword1" translate>Password</label>
+                  <input
+                    type="password"
+                    [(ngModel)]="formModel.Password" 
+                    #Password="ngModel"
+                name="Password"
+                    class="form-control border bg-light"
+                    id="password"
+                    required
+                  />
+  
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3 required">
+                <div class="form-row">
+                  <input
+                    type="checkbox"
+                    class="form-check-input mr-3"
+                    value=""
+                    id="invalidCheck"
+                    required
+                  />
+                  <label class="form-check-label ml-3 mb-2" for="invalidCheck" style="font-size: 11px;" translate
+                    >By signing up, you agree to our <a href="" translate>Terms of Use </a> and
+                    <a href="" translate>Privacy Policy. </a>
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-md-12 mb-3 required">
+              
+                <button
+                type="submit"
+                [ngClass]="{ btn: true, logbtn: form.valid, logbtnInvalid: form.invalid }"
+                [disabled]="form.invalid"
+              >
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
