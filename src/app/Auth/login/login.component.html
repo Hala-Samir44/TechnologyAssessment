@@ -1,0 +1,99 @@
+<div class="contain d-flex container-fluid h-100 px-0 mx-0">
+    <div class="col-lg-6 col-md-6 w-50 bg-img">
+    </div>
+  
+    <div class="col-lg-6 col-md-6 row justify-content-center right">
+      <div class="register d-flex mr-3">
+        <div>Don't have an account? <a [routerLink]="['/register']">Sign Up</a></div>
+      </div>
+  
+      <div class="right-container pt-lg-3 mt-lg-3">
+        <div style="background-color: rgb(233, 232, 232); margin-top: 50px;">
+          <h6>Username: test@test.com</h6>
+          <h6>Password: test</h6>
+        </div> 
+        <!-- <div class="alert alert-danger" *ngIf="userService.incorrect">{{ userService.incorrectMassege }}</div> -->
+        <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+        <div class="text">Log In To <a [routerLink]="['/home']">Our School</a></div>
+  
+        <div class="btns">
+          <button class="google">
+            <div class="ingoogle"></div>
+            <span class="disappear"> &nbsp;&nbsp;&nbsp; LogIn with Google </span>
+          </button>
+          <button class="fb" ><div class="infb"></div></button>
+          <button class="twitter"><div class="intwitter"></div></button>
+        </div>
+  
+        <h5>Or</h5>
+        <div class="form">
+          <form #form="ngForm" class="container" (submit)="onSubmit(form)">
+            <div id="err" class="form-group m-bottom">
+              <label >User Name</label>
+              <input
+                type="email"
+                class="form-control border bg-light"
+                #Email="ngModel"
+                name="Email"
+                [(ngModel)]="formModel.Email"
+                required
+                email
+                id="Email"
+                aria-invalid="true"
+              />
+              <div class="error" *ngIf="Email.invalid && (Email.dirty || Email.touched)">
+                <!-- <div id="ff" class="alert alert-danger" *ngIf="Email.errors.required"> -->
+                <div id="ff" class="alert alert-danger" >
+                  <small> Name is required.</small>
+                </div>
+  
+                <!-- <div id="ff" class="alert alert-danger" *ngIf="Email.errors.email"> -->
+                    <div id="ff" class="alert alert-danger" >
+                  <small> Invalid email. </small>
+                </div>
+              </div>
+            </div>
+            <div id="err" class="form-group m-bottom">
+              <label >Password</label>
+              <input
+                type="password"
+                #Password="ngModel"
+                class="form-control border bg-light"
+                name="Password"
+                [(ngModel)]="formModel.Password"
+                required
+                id="Password"
+              />
+  
+              <div class="error position-relative" *ngIf="Password.invalid && (Password.dirty || Password.touched)">
+                <!-- <div id="ff" class="alert alert-danger" *ngIf="Password.errors.required"> -->
+                <div id="ff" class="alert alert-danger" >
+                  <small>Passwrord is required.</small>
+                </div>
+                <!-- <div id="ff" class="alert alert-danger" *ngIf="Password.errors.pattern"> -->
+                <div id="ff" class="alert alert-danger">
+                  <small>
+                    Minimum eight characters, one uppercase,one lowercase letter, one number and one special
+                    character.</small
+                  >
+                </div>
+              </div>
+              <a 
+                ><small id="emailHelp" class="form-text text-muted" >Forgot Password?</small></a
+              >
+            </div>
+            <button
+              type="submit"
+              [ngClass]="{ btn: true, logbtn: form.valid, logbtnInvalid: form.invalid }"
+              [disabled]="form.invalid"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  
