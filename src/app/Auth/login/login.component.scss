@@ -77,21 +77,11 @@ small {
   opacity: 1;
   padding: 50px;
 }
-
-.bg-img-2 {
-  //position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  z-index: 1;
-  max-width: 700px;
-}
-
 .contain > div {
   height: 100%;
 }
 .left {
-  background: url("../../../assets/img3.png") 0 0/100% 100% padding-box,
+  background: url("../../../assets/img2.png") 0 0/100% 100% padding-box,
     url("../../../assets/img1.png") 0 0/100% 100% padding-box;
   opacity: 1;
   padding: 50px;
