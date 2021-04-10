@@ -71,8 +71,7 @@ small {
   top: 15px;
 }
 .bg-img {
-  background: url("../../../assets/img2.png") 0 0/100% 100% padding-box,
-    url("../../../assets/img1.png") 0 0/100% 100% padding-box;
+  background: url("../../../assets/poster.jpg") 0 0/100% 100% padding-box;
   opacity: 1;
   padding: 50px;
 
@@ -233,7 +232,7 @@ form.container {
 }
 @media only screen and (max-width: 950px) {
   .contain {
-    background: url("../../../assets/img1.png");
+    background: url("../../../assets/poster.jpg");
   }
   h5:before,
   h5:after {

@@ -5,7 +5,7 @@ import { RegisterComponent } from './Auth/register/register.component';
 import { DashBoardComponent } from './dash-board/dash-board.component';
 import { AuthGuard } from './helper/auth.guard';
 import { HomeComponent } from './home/home.component';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 const routes: Routes = [
   {
     path: '',
@@ -29,13 +29,12 @@ const routes: Routes = [
             canActivate: [AuthGuard] 
           },
           {
-            path: 'allStudentsDetails/:isAll',
-            component: HomeComponent,
+            path: 'movieDetails/:id',
+            component: MovieDetailsComponent,
             canActivate: [AuthGuard] 
-          },
-          {
-            path: 'studentDetail/:id',
-            component: StudentDetailComponent,
+          },{
+            path: 'myFavorMovie/:isFavorite',
+            component: HomeComponent,
             canActivate: [AuthGuard] 
           },
 

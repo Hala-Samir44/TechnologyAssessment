@@ -12,7 +12,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class LoginComponent implements OnInit {
   formModel= {
     Email:'test@test.com',
-    Password:'test'
+    Password:'test',
+    apiKey:'e74ceed9cbecf28156ffd102eba379d1'
   } ;
   submitted = false;
   returnUrl: string|undefined;
@@ -41,8 +42,14 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                this.router.navigate([this.returnUrl]);
-                this.router.navigate([this.returnUrl]);
+              var LikedMovies = localStorage.getItem("LikedMovies");
+              var FavorMovies = localStorage.getItem("FavorMovies");
+              if(!LikedMovies)
+                localStorage.setItem("LikedMovies", "[]");
+              if(!FavorMovies)
+                localStorage.setItem("FavorMovies", "[]");
+              localStorage.setItem("apiKey",this.formModel.apiKey)
+              this.router.navigate([this.returnUrl]);
             },
             error => {
                 this.error = error;

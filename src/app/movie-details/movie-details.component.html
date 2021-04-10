@@ -1,0 +1,43 @@
+
+<div class=" text-dark m-3 bg-white" style="border-radius: 20px; overflow: hidden; box-shadow: 5px 10px 25px rgb(202, 200, 200);">
+    
+      <div class="text-center"  style="background-color: black;">
+      <img [src]="'https://image.tmdb.org/t/p/w500'+movieDetail.poster_path" alt="" class="rounded-top w-50" style="height: 350px;">
+    </div>
+    <div class="p-2">
+        <div class="d-flex justify-content-between ">
+            <h5 class="mb-0">{{movieDetail.title}}</h5>
+
+            <div >
+                <span *ngIf="isLiked(movieDetail.id)" class="material-icons text-primary mr-1" (click)="LikedOrNot(false,movieDetail.id)">
+                  thumb_up
+                  </span>
+        
+                  <span *ngIf="!isLiked(movieDetail.id)" class="material-icons text-secondary mr-1" (click)="LikedOrNot(true,movieDetail.id)">
+                  thumb_up_off_alt
+                  </span>
+        
+                  <span *ngIf="isFavor(movieDetail.id)" class="material-icons text-danger mr-1" (click)="FavorOrNot(false,movieDetail.id)">
+                    favorite
+                    </span>
+            
+                    <span *ngIf="!isFavor(movieDetail.id)" class="material-icons text-secondary mr-1" (click)="FavorOrNot(true,movieDetail.id)">
+                      favorite_border
+                      </span>
+                      
+                    </div>
+                </div>
+      <div class="d-flex justify-content-between pb-3 pr-2">
+        <span>({{movieDetail.original_title}})</span>
+      </div>
+      <h6 class="p-0  m-0">Description</h6>
+      <div class="p-2"  title="{{movieDetail.overview}}" >
+        {{movieDetail.overview}}
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <pre class=" text-danger">rate : {{movieDetail.vote_average}} ({{movieDetail.vote_count}})</pre>
+        <span class=" text-primary">{{movieDetail.release_date}}</span>
+      </div>
+      </div>
+   
+  </div>

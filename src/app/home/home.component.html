@@ -1,82 +1,54 @@
 
-<div class="h-25 mb-1" style="background-image: url('../assets/img1.png')">
-
-  <img src="../assets/w5.png" alt="" class="img-responsive w-100 h-100" >
-</div>
-<div class="container-fluid ">
-    <div class="row bg-secondary text-white">
-        <div class="col-1" *ngIf="isAll"><h3>ID</h3></div>
-        <div class="col-3"><h3>First Name</h3></div>
-        <div class="col-3"><h3>Last Name</h3></div>
-        <div class="col-3" *ngIf="isAll"><h3 >Email</h3></div>
-        <div class="col-2" *ngIf="isAll"><h3 >Personal Photo</h3></div>
-    </div>
-    
-    <div class="row">
-        <div class=" m-1 p-2 bg-light col-12 SRec" *ngFor="let student of students" [routerLink]="'/studentDetail/'+student.id">
-            <div class="row">
-                <div class="col-1 pr-4" *ngIf="isAll">
-                    {{student.id}}
-                </div>
-                <div class="col-3 pr-4">
-                    {{student.first_name}}
-                </div>
-                <div class="col-3 pr-4">
-                    {{student.last_name}}
-                </div>
-                <div class="col-3 pr-4" *ngIf="isAll">
-                  {{student.email}}
-              </div>
-                <div class="col-2 pr-4" *ngIf="isAll">
-                  <img [src]="student.avatar" alt="" class="img-responsive" style="max-width:60px; border-radius: 50%;" >
-                </div>
-            </div>
+<div class="text-white p-3" style=" background-color:black;">
+  <div *ngIf="!isFavorite" class="d-flex justify-content-end">
+    <button class="m-2 btn btn-light"  (click)="bringMovies(pageNo,'top_rated')">Top movies</button>
+    <button class="m-2  btn btn-light" (click)="bringMovies(pageNo,'upcoming')">Upcoming </button>
+    <button class="m-2  btn btn-light" (click)="bringMovies(pageNo,'now_playing')">Now Playing</button>
+  </div>
+  <div class="pt-4 text-center ">
+    <h1 style="text-decoration: underline;" >{{filterd}}</h1>
+  </div>
+  <div class="d-flex  justify-content-around flex-wrap">
+    <div *ngFor="let mov of movies" class=" text-light m-5" style=" width: 300px;border-radius: 20px; overflow: hidden; box-shadow: 5px 10px 25px rgb(202, 200, 200);">
+      <a  [routerLink]="'/movieDetails/'+mov.id"> 
+        <div>
+        <img [src]="'https://image.tmdb.org/t/p/w500'+mov.poster_path" alt="" class="rounded-top" style="width:100%;height: 215px;">
+      </div>
+      <div class="p-2">
+        <h5 class="mb-0">{{mov.title}}</h5>
+        <div class="d-flex justify-content-between p-1 pr-2">
+          <span>({{mov.original_title}})</span>
         </div>
+        <h6 class="p-0  m-0">Description</h6>
+        <div class="overview" title="{{mov.overview}}" >
+          {{mov.overview}}
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+          <pre class=" text-warning">rate : {{mov.vote_average}} ({{mov.vote_count}})</pre>
+          <span class=" text-primary">{{mov.release_date}}</span>
+        </div>
+        </div>
+      </a>
+     <div class="d-flex justify-content-end p-2">
+        <span *ngIf="isLiked(mov.id)" class="material-icons text-primary m-1" (click)="LikedOrNot(false,mov.id)">
+          thumb_up
+          </span>
+
+          <span *ngIf="!isLiked(mov.id)" class="material-icons text-white m-1" (click)="LikedOrNot(true,mov.id)">
+          thumb_up_off_alt
+          </span>
+
+          <span *ngIf="isFavor(mov.id)" class="material-icons text-danger m-1" (click)="FavorOrNot(false,mov.id)">
+            favorite
+            </span>
+    
+            <span *ngIf="!isFavor(mov.id)" class="material-icons text-white m-1" (click)="FavorOrNot(true,mov.id)">
+              favorite_border
+              </span>
+
+     </div>
         
     </div>
-
-    <div class="row  ">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 ">
-        <div class="d-flex ml-auto align-items-center">
-          Items per page:
-          <ul class="mr-3 mb-0 pl-2">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle page-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{studentsNo}}<span class="caret"></span></a>
-                <ul class="dropdown-menu p-0"  style="min-width: 0px !important;">
-                    <li><a class="dropdown-item pr-3 pl-3" (click)="bringStudent(pageNo,5)" >5</a></li>
-                    <li><a class="dropdown-item pr-3 pl-3" (click)="bringStudent(pageNo,10)">10</a></li>
-                    <li><a class="dropdown-item pr-3 pl-3" (click)="bringStudent(pageNo,15)">15</a></li>
-                </ul>
-            </li>
-          </ul>
-
-
-          <ul class="pagination m-0">
-            <li class="page-item">
-              <a class="page-link" aria-label="Previous" (click)="bringStudent(pageNo-1,studentsNo)">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item" *ngFor="let page of numSequence(total_pages);let i=index "><a class="page-link" (click)="bringStudent(i+1,studentsNo)">{{i+1}}</a></li>
-            <li class="page-item">
-              <a class="page-link" aria-label="Next"(click)="bringStudent(pageNo+1,studentsNo)">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-
-        
-      </nav>
-    </div>
-    
-    
-
+  </div>
 </div>
-
-
-
 

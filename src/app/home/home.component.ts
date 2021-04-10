@@ -8,35 +8,80 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-isAll=false;
-  constructor(private HttpClient: HttpClient,private activeRoute:ActivatedRoute) {
-    this.isAll =activeRoute.snapshot.params.isAll;
-   }
-xx:any;
-students:any;
-total_pages:number=1;
-studentsNo=5;
-pageNo=1;
+  isFavorite = false;
+  constructor(private HttpClient: HttpClient, private activeRoute: ActivatedRoute) {
+    this.isFavorite = activeRoute.snapshot.params.isFavorite;
+    this.apiKey = localStorage.getItem("apiKey")??"";
+  }
+  xx: any;
+  movies: any = [];
+  total_pages: number = 1;
+  moviesNo = 5;
+  pageNo = 1;
 
+  apiKey="";
+  filterd: string = "top_rated";
+  mov: any;
   ngOnInit(): void {
-    this.bringStudent(this.pageNo,this.studentsNo)
+    this.bringMovies(this.pageNo, this.filterd);
+
   }
-  bringStudent(Pno:number,Sno:number){
-    if(Pno>0 && Pno <= this.total_pages){
-      this.HttpClient.get('https://reqres.in/api/users?page='+Pno+'&per_page='+Sno)
-      .subscribe((result: any) => {
-        this.xx = result;
-        this.students =  result['data'];
-        this.total_pages =  result['total_pages'];
-        this.studentsNo = Sno;
-        this.pageNo = Pno;
-      })
+  bringMovies(Pno: number, filterd: string) {
+    if (this.isFavorite) {
+      this.filterd = "My Favourite Movies";
+      var favirIds = JSON.parse(localStorage.getItem("FavorMovies") ?? '');
+      for (let i = 0; i < favirIds.length; i++) {
+        this.HttpClient.get('https://api.themoviedb.org/3/movie/' + favirIds[i] + '?api_key='+this.apiKey+'&page=' + Pno)
+          .subscribe((result: any) => {
+            console.log("result", result);
+            this.movies.push(result);
+          })
+      }
+    } else {
+      if (Pno > 0 && Pno <= this.total_pages) {
+        this.HttpClient.get('https://api.themoviedb.org/3/movie/' + filterd + '?api_key='+this.apiKey+'&page=' + Pno)
+          .subscribe((result: any) => {
+            this.xx = result;
+            this.movies = result['results'];
+            console.log("lk", this.movies);
+            this.filterd = filterd;
+            this.total_pages = Math.ceil(this.movies.length / 6);
+            this.pageNo = Pno;
+          })
+      }
     }
-  }
-
-  goToStudentDetail(id:number){
 
   }
+
+  isLiked(movId: number): boolean {
+    var LikedMovies: number[] = JSON.parse(localStorage.getItem("LikedMovies") ?? '');
+    return LikedMovies?.includes(movId);
+  }
+  isFavor(movId: number): boolean {
+    var FavorMovies: number[] = JSON.parse(localStorage.getItem("FavorMovies") ?? '');
+    return FavorMovies?.includes(movId);
+  }
+
+  LikedOrNot(like: boolean, movId: number) {
+    var LikedMovies: number[] = JSON.parse(localStorage.getItem("LikedMovies") ?? '');
+    if (!like) {
+      LikedMovies = LikedMovies.filter(i => i != movId);
+    } else {
+      LikedMovies.push(movId);
+    }
+    localStorage.setItem("LikedMovies", JSON.stringify(LikedMovies));
+  }
+
+  FavorOrNot(favor: boolean, movId: number) {
+    var FavorMovies: number[] = JSON.parse(localStorage.getItem("FavorMovies") ?? '');
+    if (!favor) {
+      FavorMovies = FavorMovies.filter(i => i != movId);
+    } else {
+      FavorMovies.push(movId);
+    }
+    localStorage.setItem("FavorMovies", JSON.stringify(FavorMovies));
+  }
+
   numSequence(n: number): Array<number> {
     return Array(n);
   }

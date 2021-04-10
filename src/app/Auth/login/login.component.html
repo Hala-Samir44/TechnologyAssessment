@@ -1,5 +1,9 @@
 <div class="contain d-flex container-fluid h-100 px-0 mx-0">
     <div class="col-lg-6 col-md-6 w-50 bg-img">
+      <div class="d-table float-right p-2 text-light">
+        <h6 class="m-2">Username: test@test.com</h6>
+        <h6 class="m-2">Password: test</h6>
+      </div>
     </div>
   
     <div class="col-lg-6 col-md-6 row justify-content-center right">
@@ -8,13 +12,23 @@
       </div>
   
       <div class="right-container pt-lg-3 mt-lg-3">
-        <div style="background-color: rgb(233, 232, 232); margin-top: 50px;">
-          <h6>Username: test@test.com</h6>
-          <h6>Password: test</h6>
+        
+        <div class="m-1">
+
+          <label >Api Key</label>
+              <input
+                type="text"
+                class="form-control border bg-light"
+                #apiKey="ngModel"
+                name="Email"
+                [(ngModel)]="formModel.apiKey"
+                aria-invalid="true"
+              />
+
         </div>
         <!-- <div class="alert alert-danger" *ngIf="userService.incorrect">{{ userService.incorrectMassege }}</div> -->
         <div class="alert alert-danger" *ngIf="error">{{error}}</div>
-        <div class="text">Log In To <a [routerLink]="['/home']">Our School</a></div>
+        <div class="text">Log In To <a [routerLink]="['/home']">Our Movie Club</a></div>
   
         <div class="btns">
           <button class="google">
